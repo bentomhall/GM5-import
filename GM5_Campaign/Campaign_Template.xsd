@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="GMCampaign" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="campaign">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="pc" minOccurs="0" maxOccurs="unbounded" type="creature"/>
+                <xs:element name="npc" minOccurs="0" maxOccurs="unbounded" type="creature"/>
+                <xs:element name="note" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="title" type="xs:string" minOccurs="0" />
+                            <xs:element name="text" type="xs:string" minOccurs="0" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="encounter" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="name" type="xs:string" minOccurs="0" />
+                            <xs:element name="combatant" minOccurs="0" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="hp" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+                                    </xs:sequence>
+                                    <xs:attribute name="pc" type="xs:string" />
+                                    <xs:attribute name="label" type="xs:string" />
+                                    <xs:attribute name="monster" type="xs:string" />
+                                    <xs:attribute name="role"> 
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:enumeration value="enemy" />
+                                                <xs:enumeration value="ally" />
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="item" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="name" type="xs:string" minOccurs="0" />
+                            <xs:element name="type" minOccurs="0">
+                               <xs:simpleType>
+                                    <!-- LA, MA, HA, S, M , R, A, RD, ST, WD, RG, P, SC, W, G, $ -->
+                                    <xs:restriction base="xs:string">
+                                        <xs:enumeration value="LA" />
+                                        <xs:enumeration value="MA" />
+                                        <xs:enumeration value="HA" />
+                                        <xs:enumeration value="S" />
+                                        <xs:enumeration value="M" />
+                                        <xs:enumeration value="R" />
+                                        <xs:enumeration value="A" />
+                                        <xs:enumeration value="RD" />
+                                        <xs:enumeration value="ST" />
+                                        <xs:enumeration value="WD" />
+                                        <xs:enumeration value="RG" />
+                                        <xs:enumeration value="P" />
+                                        <xs:enumeration value="SC" />
+                                        <xs:enumeration value="W" />
+                                        <xs:enumeration value="G" />
+                                        <xs:enumeration value="$" />
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="detail" type="xs:string" minOccurs="0" />
+                            <xs:element name="magic" type="xs:string" minOccurs="0" />
+                            <xs:element name="weight" type="xs:string" minOccurs="0" />
+                            <xs:element name="text" type="xs:string" minOccurs="0" />
+                            <xs:element name="ac" type="xs:string" minOccurs="0" />
+                            <xs:element name="strength" type="xs:string" minOccurs="0" />
+                            <xs:element name="stealth" minOccurs="0">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:enumeration value="YES"/>
+                                        <xs:enumeration value="NO" />
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="dmg1" type="xs:string" minOccurs="0" />
+                            <xs:element name="dmg2" type="xs:string" minOccurs="0" />
+                            <xs:element name="dmgType" minOccurs="0" >
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:enumeration value="B" />
+                                        <xs:enumeration value="P" />
+                                        <xs:enumeration value="S" />
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="property" minOccurs="0" >
+                                <xs:simpleType>
+                                    <!-- A, F, H, L, LD, R, S, T, 2H, V -->
+                                    <xs:restriction base="xs:string">
+                                        <xs:enumeration value="A" />
+                                        <xs:enumeration value="F" />
+                                        <xs:enumeration value="H" />
+                                        <xs:enumeration value="L" />
+                                        <xs:enumeration value="LD" />
+                                        <xs:enumeration value="R" />
+                                        <xs:enumeration value="S" />
+                                        <xs:enumeration value="T" />
+                                        <xs:enumeration value="2H" />
+                                        <xs:enumeration value="V" />
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="range" type="xs:string" minOccurs="0" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="version" type="xs:string" />
+            <xs:attribute name="auto_indent" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GMCampaign" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+        <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element ref="campaign" />
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="creature">
+                        <xs:sequence>
+                            <xs:element name="label" type="xs:string" minOccurs="1" />
+                            <xs:element name="name" type="xs:string" minOccurs="1" />
+                            <xs:element name="size" minOccurs="1" >
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:enumeration value="T" />
+                                        <xs:enumeration value="S" />
+                                        <xs:enumeration value="M" />
+                                        <xs:enumeration value="L" />
+                                        <xs:enumeration value="H" />
+                                        <xs:enumeration value="G" />
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="type" type="xs:string" minOccurs="0" />
+                            <xs:element name="alignment" type="xs:string" minOccurs="0" />
+                            <xs:element name="ac" type="xs:string" minOccurs="0" />
+                            <xs:element name="hp" type="xs:string" minOccurs="0" />
+                            <xs:element name="speed" type="xs:string" minOccurs="0" />
+                            <xs:element name="str" type="xs:integer" minOccurs="0" />
+                            <xs:element name="dex" type="xs:integer" minOccurs="0" />
+                            <xs:element name="con" type="xs:integer" minOccurs="0" />
+                            <xs:element name="int" type="xs:integer" minOccurs="0" />
+                            <xs:element name="wis" type="xs:integer" minOccurs="0" />
+                            <xs:element name="cha" type="xs:integer" minOccurs="0" />
+                            <xs:element name="save" type="xs:string" minOccurs="0" />
+                            <xs:element name="skill" type="xs:string" minOccurs="0" />
+                            <xs:element name="vulnerable" type="xs:string" minOccurs="0" />
+                            <xs:element name="resist" type="xs:string" minOccurs="0" />
+                            <xs:element name="immune" type="xs:string" minOccurs="0" />
+                            <xs:element name="conditionimmune" type="xs:string" minOccurs="0" />
+                            <xs:element name="senses" type="xs:string" minOccurs="0" />
+                            <xs:element name="passive" type="xs:integer" minOccurs="0" />
+                            <xs:element name="languages" type="xs:string" minOccurs="0" />
+                            <xs:element name="cr" type="xs:integer" minOccurs="0" />
+                            <xs:element name="level" type="xs:integer" minOccurs="0" />
+                            <xs:element name="slots" type="xs:string" minOccurs="0" />
+                            <xs:element name="spells" type="xs:string" minOccurs="0" />
+                            <xs:element name="trait" minOccurs="0" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="name" type="xs:string" minOccurs="0" />
+                                        <xs:element name="text" type="xs:string" minOccurs="0" />
+                                        <xs:element name="attack" type="xs:string" minOccurs="0" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="action" minOccurs="0" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="name" type="xs:string" minOccurs="0" />
+                                        <xs:element name="text" type="xs:string" minOccurs="0" />
+                                        <xs:element name="attack" type="xs:string" minOccurs="0" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="reaction" minOccurs="0" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="name" type="xs:string" minOccurs="0" />
+                                        <xs:element name="text" type="xs:string" minOccurs="0" />
+                                        <xs:element name="attack" type="xs:string" minOccurs="0" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="legendary" minOccurs="0" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="name" type="xs:string" minOccurs="0" />
+                                        <xs:element name="text" type="xs:string" minOccurs="0" />
+                                        <xs:element name="attack" type="xs:string" minOccurs="0" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+
+</xs:schema>
