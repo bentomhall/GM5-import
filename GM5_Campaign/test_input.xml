@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<campaign version="5" auto_indent="YES">
+    <pc>
+        <label>$</label>
+        <name>$ $</name>
+        <size>L</size>
+        <type>$</type>
+        <alignment>$</alignment>
+        <ac># ($)</ac>
+        <hp># (d20+#)</hp>
+        <speed>$</speed>
+        <str>#</str><dex>#</dex><con>#</con>
+        <int>#</int><wis>#</wis><cha>#</cha>
+        <save>$ *#, ...</save>
+        <skill>$ *#, ...</skill>
+        <vulnerable>$</vulnerable>
+        <resist>$</resist>
+        <immune>$</immune>
+        <conditionimmune>$</conditionimmune>
+        <senses>$</senses>
+        <passive>#</passive>
+        <languages>$</languages>
+        <cr>#</cr> <!-- monster only -->
+        <level>#</level> <!-- pc only -->
+        <trait>
+            <name>$</name>
+            <text>$</text>
+            <attack>$|#|d20</attack>
+        </trait>
+        <!-- any number of these -->
+        <action>
+            <name>$</name>
+            <text>$</text>
+            <attack>$|#|d20</attack>
+        </action>
+        <!-- any number of these -->
+        <reaction>
+            <name>$</name>
+            <text>$</text>
+            <attack>$|#|d20</attack>
+        </reaction>
+        <!-- any number of these -->
+        <legendary>
+            <name>$</name>
+            <text>$</text>
+            <attack>$|#|d20</attack>
+        </legendary>
+        <!-- any number of these -->
+        <slots>#,#,...</slots>
+        <spells>$,$,...</spells>
+    </pc>
+    <!-- any number of pc blocks. NPC blocks use the <npc> element but are identical to pc blocks -->
+    <note>
+        <title>STRING</title>
+        <text>STRING</text>
+    </note>
+    <encounter>
+        <name>STRING</name>
+        <combatant pc="$"><hp>#/#</hp></combatant>
+        <!-- any number of pc combatants -->
+        <combatant label="Goblin 1" monster="goblin" role="enemy"><hp>#/#</hp></combatant>
+        <!-- any number of other combatants, each must have a unique label -->
+    </encounter>
+    <item>
+        <name>$</name>
+        <type>LA</type>
+        <detail>$</detail>
+        <magic>0</magic> <!-- a value of 1 marks a magic item. Omit for others -->
+        <weight>#</weight>
+        <text>$</text>
+        <ac>#</ac>
+        <strength>#</strength>
+        <stealth>YES</stealth>
+        <dmg1>1d20</dmg1>
+        <dmg2>1d20</dmg2>
+        <dmgType>B</dmgType>
+        <property>A</property>
+        <range>#/#</range>
+    </item>
+    <!-- any number of these -->
+</campaign>
