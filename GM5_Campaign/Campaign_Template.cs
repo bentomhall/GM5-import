@@ -138,17 +138,17 @@ namespace Schemas {
         
         private string speedField;
         
-        private string strField;
+        private int strField;
         
-        private string dexField;
+        private int dexField;
         
-        private string conField;
+        private int conField;
         
-        private string intField;
+        private int intField;
         
-        private string wisField;
+        private int wisField;
         
-        private string chaField;
+        private int chaField;
         
         private string saveField;
         
@@ -274,7 +274,7 @@ namespace Schemas {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, DataType="integer")]
-        public string str {
+        public int str {
             get {
                 return this.strField;
             }
@@ -285,7 +285,7 @@ namespace Schemas {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, DataType="integer")]
-        public string dex {
+        public int dex {
             get {
                 return this.dexField;
             }
@@ -296,7 +296,7 @@ namespace Schemas {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, DataType="integer")]
-        public string con {
+        public int con {
             get {
                 return this.conField;
             }
@@ -307,7 +307,7 @@ namespace Schemas {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, DataType="integer")]
-        public string @int {
+        public int @int {
             get {
                 return this.intField;
             }
@@ -318,7 +318,7 @@ namespace Schemas {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, DataType="integer")]
-        public string wis {
+        public int wis {
             get {
                 return this.wisField;
             }
@@ -329,7 +329,7 @@ namespace Schemas {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, DataType="integer")]
-        public string cha {
+        public int cha {
             get {
                 return this.chaField;
             }
