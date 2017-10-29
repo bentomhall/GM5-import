@@ -35,8 +35,8 @@ namespace GM5_Campaign
             Source = source;
         }
 
-        public int Value { get; set; }
-        public string Source { get; set; }
+        public int Value { get; private set; }
+        public string Source { get; private set; }
 
         public override string ToString()
         {
@@ -70,8 +70,8 @@ namespace GM5_Campaign
             Sides = sides >= 0 ? sides : 0;
             StaticBonus = staticBonus;
         }
-        public int Number { get; set; }
-        public int Sides { get; set; }
+        public int Number { get; private set; }
+        public int Sides { get; private set; }
         public int StaticBonus {get; private set; }
 
         public override string ToString()
@@ -118,14 +118,93 @@ namespace GM5_Campaign
     }
 
     public class AttackRoll {
-        public AttackRoll(AttackType type, int hitBonus, DiceValue damage) {}
-    }
-
-    public struct CreatureFeature {
-        public CreatureFeature(FeatureType type, string name, string text, AttackRoll attack ) {
-            
+        public AttackRoll(AttackType type, int hitBonus, DiceValue damage) 
+        {
+            Attack = type;
+            HitBonus = hitBonus;
+            Damage = damage;
         }
 
+        public override string ToString()
+        {
+            return $"{attackMap[Attack]}|{HitBonus.ToString("+00;00;-00")}|{Damage}";
+        }
+
+        public AttackType Attack { get; private set; }
+        public int HitBonus {get; private set; }
+        public DiceValue Damage {get; private set; }
+
+        private Dictionary<AttackType, string> attackMap = new Dictionary<AttackType, string> {
+            { AttackType.MeleeSpell, "Melee Spell Attack" },
+            { AttackType.MeleeWeapon, "Melee Weapon Attack" },
+            { AttackType.RangedSpell, "Ranged Spell Attack" },
+            { AttackType.RangedWeapon, "Ranged Weapon Attack" },
+            { AttackType.SavingThrow, "--"}
+        };
+    }
+
+    public class CreatureFeature {
+        public CreatureFeature(FeatureType type, string name, string text, AttackRoll attack) 
+        {
+            switch (type) {
+                case FeatureType.Action:
+                    feature = new Schemas.creatureAction();
+                    break;
+                case FeatureType.Legendary:
+                    feature = new Schemas.creatureLegendary();
+                    break;
+                case FeatureType.Reaction:
+                    feature = new Schemas.creatureReaction();
+                    break;
+                case FeatureType.Trait:
+                    feature = new Schemas.creatureTrait();
+                    break;
+            }
+            feature.attack = attack.ToString();
+            feature.name = name;
+            feature.text = text;
+            this.attack = attack;
+        }
+
+        public AttackRoll Attack => attack;
+        public string Name => feature.name;
+        public string Text => feature.text;
+
+        private AttackRoll attack;
+        private Schemas.IFeature feature;
+    }
+
+    public class SpellCasting 
+    {
+        public IEnumerable<int> Slots => slots;
+        public IEnumerable<string> Spells => spells;
+
+        public void SetSlots(int level, int number)
+        {
+            if (level > 9 || level <= 0) { throw new ArgumentException($"Invalid spell level: {level}"); }
+            if (number < 0) { throw new ArgumentException($"Cannot have negative slots"); }
+            slots[level - 1] = number;
+        }
+
+        public void AddSpell(string name)
+        {
+            if (spells.Contains(name)) { return; }
+            spells.Add(name);
+            return;
+        }
+
+        public void RemoveSpell(string name)
+        {
+            if (!spells.Contains(name)) { return; }
+            spells.Remove(name);
+            return;
+        }
+
+        public string SpellSlots => slots.ToSeparatedString();
+        public string SpellNames => spells.ToSeparatedString();
+
+        private List<int> slots = new List<int> {0, 0, 0, 0, 0, 0, 0, 0, 0};
+        private List<string> spells = new List<string>();
     }
 
     public static class ExtensionMethods
@@ -138,6 +217,13 @@ namespace GM5_Campaign
         }
 
         public static string ToSeparatedString(this IEnumerable<string> lst)
+        {
+            var output = new StringBuilder();
+            output.AppendJoin(',', lst);
+            return output.ToString();
+        }
+
+        public static string ToSeparatedString(this IEnumerable<int> lst)
         {
             var output = new StringBuilder();
             output.AppendJoin(',', lst);

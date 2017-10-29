@@ -59,9 +59,9 @@ namespace GM5_Campaign
 
         public HitPoints HP => hp;
 
-        public void SetHitPoints(int maximum, DiceValue hd, int mod)
+        public void SetHitPoints(int maximum, DiceValue hd)
         {
-            hp = new HitPoints(maximum, hd, mod);
+            hp = new HitPoints(maximum, hd);
             c.hp = hp.ToString();
         }
 
@@ -175,9 +175,12 @@ namespace GM5_Campaign
             get {
                 switch (CharacterRole) {
                     case CharacterType.Ally:
+                        return c.level;
                     case CharacterType.PC:
                         return c.level;
                     case CharacterType.Monster:
+                        return c.cr;
+                    default:
                         return c.cr;
                 }                                      
             }
@@ -186,8 +189,10 @@ namespace GM5_Campaign
                     case CharacterType.Ally:
                     case CharacterType.PC:
                         c.level = value;
+                        break;
                     case CharacterType.Monster:
                         c.cr = value;
+                        break;
                 }
             }
         }
