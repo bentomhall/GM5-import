@@ -18,35 +18,32 @@ namespace GM5_Campaign
 
         public string Name
         {
-            get { return c.label; }
-            set
-            {
-                c.label = value ?? "New character";
-            }
+            get => c.label;
+            set => c.label = value ?? "New character";
         }
 
         public string RaceAndClass
         {
-            get { return c.name; }
-            set { c.name = value ?? ""; }
+            get => c.name;
+            set => c.name = value ?? "";
         }
 
         public creatureSize Size
         {
-            get { return c.size; }
-            set { c.size = value; }
+            get => c.size;
+            set => c.size = value;
         }
 
         public string Type
         {
-            get { return c.type; }
-            set { c.type = value ?? "Humanoid"; }
+            get => c.type;
+            set => c.type = value ?? "Humanoid";
         }
 
         public string Alignment
         {
-            get { return c.alignment; }
-            set { c.alignment = value ?? "Unaligned"; }
+            get => c.alignment;
+            set => c.alignment = value ?? "Unaligned";
         }
 
         public ArmorClass AC => ac;
@@ -67,51 +64,58 @@ namespace GM5_Campaign
 
         public string Speed
         {
-            get { return c.speed; }
-            set { c.speed = value ?? "30 ft."; }
+            get => c.speed;
+            set => c.speed = value ?? "30 ft.";
         }
 
         public Attribute Strength
         {
-            get { return new Attribute(c.str); }
-            set { c.str = value.Score; }
+            get => new Attribute(c.str);
+            set => c.str = value.Score;
         }
 
         public Attribute Dexterity
         {
-            get { return new Attribute(c.dex); }
-            set { c.dex = value.Score; }
+            get => new Attribute(c.dex);
+            set => c.dex = value.Score;
         }
 
         public Attribute Constitution
         {
-            get { return new Attribute(c.con); }
-            set { c.con = value.Score; }
+            get => new Attribute(c.con);
+            set => c.con = value.Score;
         }
 
         public Attribute Intelligence
         {
-            get { return new Attribute(c.@int); }
-            set { c.@int = value.Score; }
+            get => new Attribute(c.@int);
+            set => c.@int = value.Score;
         }
 
         public Attribute Wisdom
         {
-            get { return new Attribute(c.wis); }
-            set { c.wis = value.Score; }
+            get => new Attribute(c.wis);
+            set => c.wis = value.Score;
         }
 
         public Attribute Charisma
         {
-            get { return new Attribute(c.cha); }
-            set { c.cha = value.Score; }
+            get => new Attribute(c.cha);
+            set => c.cha = value.Score;
         }
 
         public IEnumerable<NameValuePair> Saves => saves;
 
         public void AddSave(NameValuePair s)
         {
+            if (saves.Contains(s)) { return; }
             saves.Add(s);
+            c.save = saves.ToSeparatedString();
+        }
+
+        public void RemoveSave(NameValuePair s)
+        {
+            saves.Remove(s);
             c.save = saves.ToSeparatedString();
         }
 
@@ -119,7 +123,14 @@ namespace GM5_Campaign
 
         public void AddSkill(NameValuePair s)
         {
+            if (skills.Contains(s)) { return; }
             skills.Add(s);
+            c.skill = skills.ToSeparatedString();
+        }
+
+        public void RemoveSkill(NameValuePair s)
+        {
+            skills.Remove(s);
             c.skill = skills.ToSeparatedString();
         }
 
@@ -130,45 +141,80 @@ namespace GM5_Campaign
 
         public void AddVulnerability(string v)
         {
+            if (vulnerabilities.Contains(v)) { return; }
             vulnerabilities.Add(v);
+            c.vulnerable = vulnerabilities.ToSeparatedString();
+        }
+
+        public void RemoveVulnerability(string v)
+        {
+            vulnerabilities.Remove(v);
             c.vulnerable = vulnerabilities.ToSeparatedString();
         }
 
         public void AddResistance(string s)
         {
+            if (resistances.Contains(s)) { return; }
             resistances.Add(s);
             c.resist = resistances.ToSeparatedString();
         }
 
+        public void RemoveResistance(string s)
+        {
+            resistances.Remove(s);
+            c.resist = vulnerabilities.ToSeparatedString();
+        }
+
         public void AddImmunity(string s)
         {
+            if (immunities.Contains(s)) { return; }
             immunities.Add(s);
+            c.immune = immunities.ToSeparatedString();
+        }
+
+        public void RemoveImmunity(string s)
+        {
+            immunities.Remove(s);
             c.immune = immunities.ToSeparatedString();
         }
 
         public void AddConditionImmunity(string s)
         {
+            if (conditionImmunities.Contains(s)) { return; }
             conditionImmunities.Add(s);
+            c.conditionimmune = conditionImmunities.ToSeparatedString();
+        }
+
+        public void RemoveConditionImmunity(string s)
+        {
+            conditionImmunities.Remove(s);
             c.conditionimmune = conditionImmunities.ToSeparatedString();
         }
 
         public IEnumerable<NameValuePair> Senses => senses;
         public void AddSense(NameValuePair sense)
         {
+            if (senses.Contains(sense)) { return; }
             senses.Add(sense);
             c.senses = senses.ToSeparatedString();
         }
 
+        public void RemoveSense(NameValuePair sense)
+        {
+            senses.Remove(sense);
+            c.senses = senses.ToSeparatedString();
+        }
+
         public int PassivePerception {
-            get { return c.passive; }
-            set { c.passive = value; }
+            get => c.passive;
+            set => c.passive = value;
         }
 
         public CharacterType CharacterRole { get; private set; }
 
         public string Languages {
-            get { return c.languages; }
-            set { c.languages = value; }
+            get => c.languages;
+            set => c.languages = value;
         }
 
         public int Rating {
@@ -197,8 +243,14 @@ namespace GM5_Campaign
             }
         }
 
-        
+        public IEnumerable<int> SpellSlots => spells.Slots;
+        public IEnumerable<string> Spells => spells.Spells;
 
+        public void SetSlots(int level, int number) => spells.SetSlots(level, number);
+        public void AddSpell(string name) => spells.AddSpell(name);
+        public void RemoveSpell(string name) => spells.RemoveSpell(name);
+
+        private SpellCasting spells = new SpellCasting();
         private List<NameValuePair> senses = new List<NameValuePair>();
         private List<string> resistances = new List<string>();
         private List<string> immunities = new List<string>();
