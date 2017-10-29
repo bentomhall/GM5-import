@@ -164,13 +164,13 @@ namespace Schemas {
         
         private string sensesField;
         
-        private string passiveField;
+        private int passiveField;
         
         private string languagesField;
         
-        private string crField;
+        private int crField;
         
-        private string levelField;
+        private int levelField;
         
         private string slotsField;
         

@@ -5,6 +5,28 @@ using System.Text;
 
 namespace GM5_Campaign
 {
+    public enum CharacterType {
+        PC,
+        Monster,
+        Ally
+    }
+
+    public enum FeatureType {
+        Trait,
+        Action,
+        Legendary,
+        Reaction
+    }
+
+    public enum AttackType {
+        MeleeWeapon,
+        MeleeSpell,
+        RangedWeapon,
+        RangedSpell,
+        SavingThrow
+    }
+
+
     public struct ArmorClass
     {
         public ArmorClass(int value, string source)
@@ -24,38 +46,40 @@ namespace GM5_Campaign
 
     public struct HitPoints
     {
-        public HitPoints(int maximum, DiceValue hitdice, int staticModifier)
+        public HitPoints(int maximum, DiceValue hitdice)
         {
             Maximum = maximum;
             HitDice = hitdice;
-            StaticModifier = staticModifier;
         }
 
         public int Maximum { get; private set; }
         public DiceValue HitDice { get; private set; }
-        public int StaticModifier { get; private set; }
 
         public override string ToString()
         {
             if (Maximum == 0) { return "0"; }
-            return $"{Maximum} ({HitDice}+{StaticModifier})";
+            return $"{Maximum} ({HitDice})";
         }
     }
 
     public struct DiceValue
     {
-        public DiceValue(int number, int sides)
+        public DiceValue(int number, int sides, int staticBonus)
         {
             Number = number >= 0 ? number : 0;
             Sides = sides >= 0 ? sides : 0;
+            StaticBonus = staticBonus;
         }
         public int Number { get; set; }
         public int Sides { get; set; }
+        public int StaticBonus {get; private set; }
 
         public override string ToString()
         {
-            if (Number == 0 || Sides == 0) { return ""; }
-            return $"{Number}d{Sides}";
+            if ((Number == 0 || Sides == 0) && StaticBonus == 0) { return ""; }
+            if (StaticBonus > 0) { return $"{Number}d{Sides}+{StaticBonus}"; }
+            else if (StaticBonus == 0) { return $"{Number}d{Sides}"; }
+            else { return $"{Number}d{Sides}-{Math.Abs(StaticBonus)}";}
         }
     }
 
@@ -91,6 +115,17 @@ namespace GM5_Campaign
         {
             return $"{Name} {Value.ToString("+0;-0")}";
         }
+    }
+
+    public class AttackRoll {
+        public AttackRoll(AttackType type, int hitBonus, DiceValue damage) {}
+    }
+
+    public struct CreatureFeature {
+        public CreatureFeature(FeatureType type, string name, string text, AttackRoll attack ) {
+            
+        }
+
     }
 
     public static class ExtensionMethods

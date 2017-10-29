@@ -10,9 +10,10 @@ namespace GM5_Campaign
 
     public class Character
     {
-        public Character()
+        public Character(CharacterType role)
         {
             c = new creature();
+            CharacterRole = role;
         }
 
         public string Name
@@ -157,6 +158,41 @@ namespace GM5_Campaign
             senses.Add(sense);
             c.senses = senses.ToSeparatedString();
         }
+
+        public int PassivePerception {
+            get { return c.passive; }
+            set { c.passive = value; }
+        }
+
+        public CharacterType CharacterRole { get; private set; }
+
+        public string Languages {
+            get { return c.languages; }
+            set { c.languages = value; }
+        }
+
+        public int Rating {
+            get {
+                switch (CharacterRole) {
+                    case CharacterType.Ally:
+                    case CharacterType.PC:
+                        return c.level;
+                    case CharacterType.Monster:
+                        return c.cr;
+                }                                      
+            }
+            set {
+                switch (CharacterRole) {
+                    case CharacterType.Ally:
+                    case CharacterType.PC:
+                        c.level = value;
+                    case CharacterType.Monster:
+                        c.cr = value;
+                }
+            }
+        }
+
+        
 
         private List<NameValuePair> senses = new List<NameValuePair>();
         private List<string> resistances = new List<string>();
