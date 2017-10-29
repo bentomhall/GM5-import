@@ -40,11 +40,20 @@ namespace Schemas {
         private List<campaignEncounter> encounterField = new List<campaignEncounter>();
         
         private List<campaignItem> itemField = new List<campaignItem>();
+
+        private string nameField = "";
         
         private string versionField = "5";
         
         private string auto_indentField = "YES";
         
+        [System.Xml.Serialization.XmlElementAttribute("name", Form =System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string name
+        {
+            get => nameField;
+            set => nameField = value;
+        }
+
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("pc", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public List<creature> pc {
@@ -827,7 +836,8 @@ namespace Schemas {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
-    public partial class campaignEncounterCombatant {
+    public partial class campaignEncounterCombatant : System.IEquatable<campaignEncounterCombatant>
+    {
         
         private string hpField = "";
         
@@ -905,6 +915,24 @@ namespace Schemas {
             set {
                 this.roleFieldSpecified = value;
             }
+        }
+
+        public bool Equals(campaignEncounterCombatant other)
+        {
+            return other.labelField == labelField;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) { return false; }
+            var other = obj as campaignEncounterCombatant;
+            if (other == null) { return false; }
+            return Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return labelField.GetHashCode();
         }
     }
     

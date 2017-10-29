@@ -114,7 +114,7 @@ namespace GM5_Campaign
         }
     }
 
-    public struct NameValuePair
+    public class NameValuePair : IEquatable<NameValuePair>
     {
         public NameValuePair (string name, int value)
         {
@@ -124,6 +124,24 @@ namespace GM5_Campaign
 
         public string Name { get; private set; }
         public int Value { get; private set; }
+
+        public bool Equals(NameValuePair other)
+        {
+            return other.Name == Name && other.Value == Value;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) { return false; }
+            NameValuePair NVPOther = obj as NameValuePair;
+            if (NVPOther == null) { return false; }
+            return Equals(NVPOther);
+        }
+
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode();
+        }
 
         public override string ToString()
         {
@@ -157,7 +175,8 @@ namespace GM5_Campaign
         };
     }
 
-    public class CreatureFeature {
+    public class CreatureFeature : IEquatable<CreatureFeature>
+    {
         public CreatureFeature(FeatureType type, string name, string text, AttackRoll attack) 
         {
             switch (type) {
@@ -186,6 +205,24 @@ namespace GM5_Campaign
 
         private AttackRoll attack;
         private Schemas.IFeature feature;
+
+        public bool Equals(CreatureFeature other)
+        {
+            return other.Name == Name;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) { return false; }
+            var other = obj as CreatureFeature;
+            if (other == null) { return false; }
+            return Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode();
+        }
     }
 
     public class SpellCasting 

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GM5_Campaign
 {
-    class Encounter
+    class Encounter : IEquatable<Encounter>
     {
         public string Name
         {
@@ -43,6 +43,24 @@ namespace GM5_Campaign
         public void RemoveCombatant(campaignEncounterCombatant c)
         {
             encounter.combatant.Remove(c);
+        }
+
+        public bool Equals(Encounter other)
+        {
+            return other.Name == Name;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) { return false; }
+            var other = obj as Encounter;
+            if (other == null) { return false; }
+            return Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode();
         }
 
         private campaignEncounter encounter = new campaignEncounter();

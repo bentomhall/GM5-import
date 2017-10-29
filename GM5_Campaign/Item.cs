@@ -47,7 +47,7 @@ namespace GM5_Campaign
         Special
     }
 
-    class Item
+    class Item : IEquatable<Item>
     {
         public Item(ItemMapper map)
         {
@@ -139,6 +139,24 @@ namespace GM5_Campaign
         {
             properties.Remove(p);
             item.property = properties.Select(x => mapper.GetPropertyLetterCode(x)).ToSeparatedString();
+        }
+
+        public bool Equals(Item other)
+        {
+            return other.Name == Name && other.Type == Type;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) { return false; }
+            var other = obj as Item;
+            if (other == null) { return false; }
+            return Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode() ^ Type.GetHashCode();
         }
 
         private List<ItemProperty> properties = new List<ItemProperty>();

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GM5_Campaign
 {
-    public class Character
+    public class Character : IEquatable<Character>
     {
         public Character(CharacterType role)
         {
@@ -247,6 +247,24 @@ namespace GM5_Campaign
         public void SetSlots(int level, int number) => spells.SetSlots(level, number);
         public void AddSpell(string name) => spells.AddSpell(name);
         public void RemoveSpell(string name) => spells.RemoveSpell(name);
+
+        public bool Equals(Character other)
+        {
+            return other.Name == Name;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) { return false; }
+            var other = obj as Character;
+            if (other == null) { return false; }
+            return Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode();
+        }
 
         public creature Creature => c;
 
