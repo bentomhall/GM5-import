@@ -6,8 +6,6 @@ using System.Linq;
 
 namespace GM5_Campaign
 {
-
-
     public class Character
     {
         public Character(CharacterType role)
@@ -249,6 +247,8 @@ namespace GM5_Campaign
         public void SetSlots(int level, int number) => spells.SetSlots(level, number);
         public void AddSpell(string name) => spells.AddSpell(name);
         public void RemoveSpell(string name) => spells.RemoveSpell(name);
+
+        public creature Creature => c;
 
         private SpellCasting spells = new SpellCasting();
         private List<NameValuePair> senses = new List<NameValuePair>();
