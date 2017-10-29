@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace GM5_Campaign
 {
@@ -70,6 +71,19 @@ namespace GM5_Campaign
             Sides = sides >= 0 ? sides : 0;
             StaticBonus = staticBonus;
         }
+
+        public DiceValue(string combinedValue)
+        {
+            Regex rx = new Regex(@"(\d +)d(\d +)(\+(\d +) | (-\d +))?", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            var matches = rx.Match(combinedValue);
+            var captures = matches.Captures;
+            if (captures.Count < 2) { throw new ArgumentException($"Incorrect format for input string: {combinedValue}"); }
+            if (captures.Count == 2) { StaticBonus = 0; }
+            else { StaticBonus = int.Parse(captures[3].Value); }
+            Number = int.Parse(captures[0].Value);
+            Sides = int.Parse(captures[1].Value);
+        }
+
         public int Number { get; private set; }
         public int Sides { get; private set; }
         public int StaticBonus {get; private set; }
@@ -224,6 +238,13 @@ namespace GM5_Campaign
         }
 
         public static string ToSeparatedString(this IEnumerable<int> lst)
+        {
+            var output = new StringBuilder();
+            output.AppendJoin(',', lst);
+            return output.ToString();
+        }
+
+        public static string ToSeparatedString(this IEnumerable<Schemas.campaignItemProperty> lst)
         {
             var output = new StringBuilder();
             output.AppendJoin(',', lst);

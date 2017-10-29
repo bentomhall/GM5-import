@@ -939,7 +939,7 @@ namespace Schemas {
         
         private int magicField = 0;
         
-        private int weightField = 0;
+        private decimal weightField = 0;
         
         private string textField = "";
         
@@ -959,7 +959,7 @@ namespace Schemas {
         
         private bool dmgTypeFieldSpecified;
         
-        private campaignItemProperty propertyField;
+        private string propertyField;
         
         private bool propertyFieldSpecified;
         
@@ -1022,7 +1022,7 @@ namespace Schemas {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public int weight {
+        public decimal weight {
             get {
                 return this.weightField;
             }
@@ -1132,7 +1132,7 @@ namespace Schemas {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public campaignItemProperty property {
+        public string property {
             get {
                 return this.propertyField;
             }
@@ -1217,7 +1217,7 @@ namespace Schemas {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlEnumAttribute("$")]
-        Item,
+        Currency,
     }
     
     /// <remarks/>
