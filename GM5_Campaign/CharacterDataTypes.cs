@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
+
 namespace GM5_Campaign
 {
     public enum CharacterType {
@@ -70,18 +71,6 @@ namespace GM5_Campaign
             Number = number >= 0 ? number : 0;
             Sides = sides >= 0 ? sides : 0;
             StaticBonus = staticBonus;
-        }
-
-        public DiceValue(string combinedValue)
-        {
-            Regex rx = new Regex(@"(\d +)d(\d +)(\+(\d +) | (-\d +))?", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            var matches = rx.Match(combinedValue);
-            var captures = matches.Captures;
-            if (captures.Count < 2) { throw new ArgumentException($"Incorrect format for input string: {combinedValue}"); }
-            if (captures.Count == 2) { StaticBonus = 0; }
-            else { StaticBonus = int.Parse(captures[3].Value); }
-            Number = int.Parse(captures[0].Value);
-            Sides = int.Parse(captures[1].Value);
         }
 
         public int Number { get; private set; }
@@ -203,6 +192,8 @@ namespace GM5_Campaign
         public string Name => feature.name;
         public string Text => feature.text;
 
+        public Schemas.IFeature Feature => feature;
+
         private AttackRoll attack;
         private Schemas.IFeature feature;
 
@@ -227,6 +218,18 @@ namespace GM5_Campaign
 
     public class SpellCasting 
     {
+        public SpellCasting() 
+        {
+            
+        }
+
+        public SpellCasting(List<int> _slots, List<string> _spells)
+        {
+            slots = _slots;
+            spells = _spells;
+        }
+
+
         public IEnumerable<int> Slots => slots;
         public IEnumerable<string> Spells => spells;
 

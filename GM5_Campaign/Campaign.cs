@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Schemas;
+using System.Linq;
 namespace GM5_Campaign
 {
     class Campaign
@@ -56,6 +57,16 @@ namespace GM5_Campaign
         public void RemoveNote(Note note)
         {
             notes.Remove(note);
+        }
+
+        public campaign BuildForPersistance()
+        {
+            c.pc = pcEntities.Select(x => x.BuildForPersistance()).ToList();
+            c.npc = npcEntities.Select(x => x.BuildForPersistance()).ToList();
+            c.note = notes.Select(x => x.NoteEntity).ToList();
+            c.encounter = encounters.Select(x => x.EncounterEntity).ToList();
+            c.item = treasures.Select(x => x.BuildForPersistance()).ToList();
+            return c;
         }
 
         private campaign c;

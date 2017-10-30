@@ -54,6 +54,8 @@ namespace GM5_Campaign
             mapper = map;
         }
 
+        public campaignItem ItemEntity => item;
+
         public string Name
         {
             get => item.name;
@@ -118,14 +120,14 @@ namespace GM5_Campaign
 
         public DiceValue OneHandDamage
         {
-            get => new DiceValue(item.dmg1);
-            set => item.dmg1 = value.ToString(); 
+            get => oneHandDamage;
+            set => oneHandDamage = value; 
         }
 
         public DiceValue TwoHandDamage
         {
-            get => new DiceValue(item.dmg2);
-            set => item.dmg2 = value.ToString();
+            get => twoHandDamage;
+            set => twoHandDamage = value;
         }
 
         public IEnumerable<ItemProperty> Properties => properties;
@@ -133,12 +135,18 @@ namespace GM5_Campaign
         {
             if (properties.Contains(p)) { return; }
             properties.Add(p);
-            item.property = properties.Select(x => mapper.GetPropertyLetterCode(x)).ToSeparatedString();
         }
         public void RemoveProperty(ItemProperty p)
         {
             properties.Remove(p);
+        }
+
+        public campaignItem BuildForPersistance()
+        {
             item.property = properties.Select(x => mapper.GetPropertyLetterCode(x)).ToSeparatedString();
+            if (oneHandDamage.Number != 0) {item.dmg1 = oneHandDamage.ToString(); }
+            if (twoHandDamage.Number != 0) { item.dmg2 = twoHandDamage.ToString(); }
+            return item;
         }
 
         public bool Equals(Item other)
@@ -159,6 +167,8 @@ namespace GM5_Campaign
             return Name.GetHashCode() ^ Type.GetHashCode();
         }
 
+        private DiceValue oneHandDamage;
+        private DiceValue twoHandDamage;
         private List<ItemProperty> properties = new List<ItemProperty>();
         private campaignItem item = new campaignItem();
         private ItemMapper mapper;

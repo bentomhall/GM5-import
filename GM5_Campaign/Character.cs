@@ -17,9 +17,41 @@ namespace GM5_Campaign
         public Character(creature loaded, CharacterType role) {
             c = loaded;
             CharacterRole = role;
-            //set vulnerabilities, resistances, immunities
-            //set features
-            //set skills and saves
+            var parser = new CreatureParser(c);
+            vulnerabilities = parser.ParseStringList("vulnerability");
+            resistances = parser.ParseStringList("resistance");
+            immunities = parser.ParseStringList("immunity");
+            conditionImmunities = parser.ParseStringList("condition");
+            skills = parser.ParseNameValuePair("skill");
+            saves = parser.ParseNameValuePair("save");
+            senses = parser.ParseNameValuePair("sense");
+            traits = parser.ParseFeatures(FeatureType.Trait);
+            actions = parser.ParseFeatures(FeatureType.Action);
+            reactions = parser.ParseFeatures(FeatureType.Reaction);
+            legendaries = parser.ParseFeatures(FeatureType.Legendary);
+            spells = parser.ParseSpells();
+            ac = parser.ParseArmorClass();
+            hp = parser.ParseHitPoints();
+        }
+
+        public creature BuildForPersistance()
+        {
+            c.vulnerable = vulnerabilities.ToSeparatedString();
+            c.resist = resistances.ToSeparatedString();
+            c.immune = immunities.ToSeparatedString();
+            c.conditionimmune = conditionImmunities.ToSeparatedString();
+            c.skill = skills.ToSeparatedString();
+            c.save = saves.ToSeparatedString();
+            c.senses = senses.ToSeparatedString();
+            c.spells = spells.SpellNames;
+            c.slots = spells.SpellSlots;
+            c.trait = traits.Select(x => x.Feature as creatureTrait).ToList();
+            c.action = actions.Select(x => x.Feature as creatureAction).ToList();
+            c.reaction = reactions.Select(x => x.Feature as creatureReaction).ToList();
+            c.legendary = legendaries.Select(x => x.Feature as creatureLegendary).ToList();
+            c.hp = hp.ToString();
+            c.ac = ac.ToString();
+            return c;
         }
 
         public string Name
@@ -57,7 +89,6 @@ namespace GM5_Campaign
         public void SetArmor(int value, string source)
         {
             ac = new ArmorClass(value, source);
-            c.ac = ac.ToString();
         }
 
         public HitPoints HP => hp;
@@ -65,7 +96,6 @@ namespace GM5_Campaign
         public void SetHitPoints(int maximum, DiceValue hd)
         {
             hp = new HitPoints(maximum, hd);
-            c.hp = hp.ToString();
         }
 
         public string Speed
@@ -116,13 +146,11 @@ namespace GM5_Campaign
         {
             if (saves.Contains(s)) { return; }
             saves.Add(s);
-            c.save = saves.ToSeparatedString();
         }
 
         public void RemoveSave(NameValuePair s)
         {
             saves.Remove(s);
-            c.save = saves.ToSeparatedString();
         }
 
         public IEnumerable<NameValuePair> Skills => skills;
@@ -131,13 +159,11 @@ namespace GM5_Campaign
         {
             if (skills.Contains(s)) { return; }
             skills.Add(s);
-            c.skill = skills.ToSeparatedString();
         }
 
         public void RemoveSkill(NameValuePair s)
         {
             skills.Remove(s);
-            c.skill = skills.ToSeparatedString();
         }
 
         public IEnumerable<string> Vulnerabilities => vulnerabilities;
@@ -149,52 +175,44 @@ namespace GM5_Campaign
         {
             if (vulnerabilities.Contains(v)) { return; }
             vulnerabilities.Add(v);
-            c.vulnerable = vulnerabilities.ToSeparatedString();
         }
 
         public void RemoveVulnerability(string v)
         {
             vulnerabilities.Remove(v);
-            c.vulnerable = vulnerabilities.ToSeparatedString();
         }
 
         public void AddResistance(string s)
         {
             if (resistances.Contains(s)) { return; }
             resistances.Add(s);
-            c.resist = resistances.ToSeparatedString();
         }
 
         public void RemoveResistance(string s)
         {
             resistances.Remove(s);
-            c.resist = vulnerabilities.ToSeparatedString();
         }
 
         public void AddImmunity(string s)
         {
             if (immunities.Contains(s)) { return; }
             immunities.Add(s);
-            c.immune = immunities.ToSeparatedString();
         }
 
         public void RemoveImmunity(string s)
         {
             immunities.Remove(s);
-            c.immune = immunities.ToSeparatedString();
         }
 
         public void AddConditionImmunity(string s)
         {
             if (conditionImmunities.Contains(s)) { return; }
             conditionImmunities.Add(s);
-            c.conditionimmune = conditionImmunities.ToSeparatedString();
         }
 
         public void RemoveConditionImmunity(string s)
         {
             conditionImmunities.Remove(s);
-            c.conditionimmune = conditionImmunities.ToSeparatedString();
         }
 
         public IEnumerable<NameValuePair> Senses => senses;
@@ -202,13 +220,11 @@ namespace GM5_Campaign
         {
             if (senses.Contains(sense)) { return; }
             senses.Add(sense);
-            c.senses = senses.ToSeparatedString();
         }
 
         public void RemoveSense(NameValuePair sense)
         {
             senses.Remove(sense);
-            c.senses = senses.ToSeparatedString();
         }
 
         public int PassivePerception {
@@ -256,6 +272,48 @@ namespace GM5_Campaign
         public void AddSpell(string name) => spells.AddSpell(name);
         public void RemoveSpell(string name) => spells.RemoveSpell(name);
 
+        public IEnumerable<CreatureFeature> Traits => traits;
+        public IEnumerable<CreatureFeature> Actions => actions;
+        public IEnumerable<CreatureFeature> Reactions => reactions;
+        public IEnumerable<CreatureFeature> Legendaries => legendaries;
+
+        public void AddFeature(CreatureFeature f, FeatureType type) 
+        {
+            switch (type) {
+                case FeatureType.Trait:
+                    if (!traits.Contains(f)) { traits.Add(f); }
+                    break;
+                case FeatureType.Action:
+                    if (!actions.Contains(f)) { actions.Add(f); }
+                    break;
+                case FeatureType.Reaction:
+                    if (!reactions.Contains(f)) { reactions.Add(f);}
+                    break;
+                case FeatureType.Legendary:
+                    if (!legendaries.Contains(f)) { legendaries.Add(f);}
+                    break;
+            }
+        }
+
+        public void RemoveFeature(CreatureFeature f, FeatureType t)
+        {
+            switch (t)
+            {
+                case FeatureType.Trait:
+                    traits.Remove(f);
+                    break;
+                case FeatureType.Action:
+                    actions.Remove(f); 
+                    break;
+                case FeatureType.Reaction:
+                    reactions.Remove(f);
+                    break;
+                case FeatureType.Legendary:
+                    legendaries.Remove(f);
+                    break;
+            }
+        }
+
         public bool Equals(Character other)
         {
             return other.Name == Name;
@@ -284,6 +342,10 @@ namespace GM5_Campaign
         private List<string> vulnerabilities = new List<string>();
         private List<NameValuePair> skills = new List<NameValuePair>();
         private List<NameValuePair> saves = new List<NameValuePair>();
+        private List<CreatureFeature> traits =  new List<CreatureFeature>();
+        private List<CreatureFeature> actions = new List<CreatureFeature>();
+        private List<CreatureFeature> reactions = new List<CreatureFeature>();
+        private List<CreatureFeature> legendaries = new List<CreatureFeature>();
         private HitPoints hp;
         private ArmorClass ac;
         private creature c;

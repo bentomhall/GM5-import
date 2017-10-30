@@ -14,6 +14,8 @@ namespace GM5_Campaign
             set => encounter.name = value;
         }
 
+        public campaignEncounter EncounterEntity => encounter;
+
         public void AddCombatant(CharacterType role, string label, string monsterName = "", int currentHP = 0, int maxHP = 0)
         {
             var combatant = new campaignEncounterCombatant();
