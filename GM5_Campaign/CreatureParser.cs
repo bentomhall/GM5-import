@@ -145,7 +145,7 @@ namespace GM5_Campaign
             int staticBonus;
             int number;
             int sides;
-            if (captures.Count < 2) { throw new ArgumentException($"Incorrect format for input string: {combinedValue}"); }
+            if (captures.Count < 2) { throw new ArgumentException($"Incorrect format for input string: {s}"); }
             else if (captures.Count == 2) { staticBonus = 0; }
             else { staticBonus = int.Parse(captures[3].Value); }
             number = int.Parse(captures[0].Value);
