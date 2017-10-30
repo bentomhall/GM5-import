@@ -14,6 +14,14 @@ namespace GM5_Campaign
             CharacterRole = role;
         }
 
+        public Character(creature loaded, CharacterType role) {
+            c = loaded;
+            CharacterRole = role;
+            //set vulnerabilities, resistances, immunities
+            //set features
+            //set skills and saves
+        }
+
         public string Name
         {
             get => c.label;

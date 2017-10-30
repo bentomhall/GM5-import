@@ -6,6 +6,14 @@ namespace GM5_Campaign
 {
     class Campaign
     {
+        public Campaign() {
+            c = new campaign();
+        }
+
+        public Campaign(campaign loaded) {
+            c = loaded;
+        }
+
         public string Title
         {
             get => c.name;
@@ -50,7 +58,7 @@ namespace GM5_Campaign
             notes.Remove(note);
         }
 
-        private campaign c = new campaign();
+        private campaign c;
         private List<Character> pcEntities = new List<Character>();
         private List<Character> npcEntities = new List<Character>();
         private List<Note> notes = new List<Note>();
