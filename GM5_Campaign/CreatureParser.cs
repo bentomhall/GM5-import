@@ -102,7 +102,7 @@ namespace GM5_Campaign
                 {"Melee Weapon Attack", AttackType.MeleeWeapon},
                 {"Ranged Spell Attack", AttackType.RangedSpell},
                 {"Ranged Weapon Attack", AttackType.RangedWeapon},
-                {"Saving Throw", AttackType.SavingThrow}
+                {"--", AttackType.SavingThrow}
             };
 
             return new AttackRoll(map[lst[0]], atk, dice);

@@ -80,18 +80,20 @@ namespace GM5_Campaign
         public override string ToString()
         {
             if ((Number == 0 || Sides == 0) && StaticBonus == 0) { return ""; }
+            else if ((Number == 0 || Sides == 0) && StaticBonus != 0) { return StaticBonus.ToString("+0;-0"); }
             if (StaticBonus > 0) { return $"{Number}d{Sides}+{StaticBonus}"; }
             else if (StaticBonus == 0) { return $"{Number}d{Sides}"; }
             else { return $"{Number}d{Sides}-{Math.Abs(StaticBonus)}";}
         }
     }
 
-    public struct Attribute
+    public struct CharacterAttribute
     {
-        public Attribute(int score)
+        public CharacterAttribute(int score)
         {
             Score = Math.Max(score, 1);
-            Modifier = (Score - 10) / 2;
+            Modifier = (int)Math.Floor((Score - 10.0) / 2.0);
+
         }
 
         public int Score { get; private set; }
@@ -148,7 +150,8 @@ namespace GM5_Campaign
 
         public override string ToString()
         {
-            return $"{attackMap[Attack]}|{HitBonus.ToString("+00;00;-00")}|{Damage}";
+            if (Attack == AttackType.SavingThrow && HitBonus == 0 && Damage.Number == 0 && Damage.StaticBonus == 0) { return ""; } //empty value, null replacement
+            return $"{attackMap[Attack]}|{HitBonus.ToString("+0;0;-0")}|{Damage}";
         }
 
         public AttackType Attack { get; private set; }
@@ -182,13 +185,13 @@ namespace GM5_Campaign
                     feature = new Schemas.creatureTrait();
                     break;
             }
-            feature.attack = attack.ToString();
+            feature.attack = attack?.ToString() ?? "";
             feature.name = name;
             feature.text = text;
-            this.attack = attack;
+            this.attack = attack ?? new AttackRoll(AttackType.SavingThrow, 0, new DiceValue(0,0,0));
         }
 
-        public AttackRoll Attack => attack;
+        public AttackRoll Attack => attack ;
         public string Name => feature.name;
         public string Text => feature.text;
 
@@ -225,6 +228,7 @@ namespace GM5_Campaign
 
         public SpellCasting(List<int> _slots, List<string> _spells)
         {
+            //does not validate spell slots!
             slots = _slots;
             spells = _spells;
         }

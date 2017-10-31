@@ -104,39 +104,39 @@ namespace GM5_Campaign
             set => c.speed = value ?? "30 ft.";
         }
 
-        public Attribute Strength
+        public CharacterAttribute Strength
         {
-            get => new Attribute(c.str);
+            get => new CharacterAttribute(c.str);
             set => c.str = value.Score;
         }
 
-        public Attribute Dexterity
+        public CharacterAttribute Dexterity
         {
-            get => new Attribute(c.dex);
+            get => new CharacterAttribute(c.dex);
             set => c.dex = value.Score;
         }
 
-        public Attribute Constitution
+        public CharacterAttribute Constitution
         {
-            get => new Attribute(c.con);
+            get => new CharacterAttribute(c.con);
             set => c.con = value.Score;
         }
 
-        public Attribute Intelligence
+        public CharacterAttribute Intelligence
         {
-            get => new Attribute(c.@int);
+            get => new CharacterAttribute(c.@int);
             set => c.@int = value.Score;
         }
 
-        public Attribute Wisdom
+        public CharacterAttribute Wisdom
         {
-            get => new Attribute(c.wis);
+            get => new CharacterAttribute(c.wis);
             set => c.wis = value.Score;
         }
 
-        public Attribute Charisma
+        public CharacterAttribute Charisma
         {
-            get => new Attribute(c.cha);
+            get => new CharacterAttribute(c.cha);
             set => c.cha = value.Score;
         }
 
