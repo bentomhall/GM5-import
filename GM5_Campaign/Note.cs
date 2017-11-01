@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GM5_Campaign
 {
-    class Note : IEquatable<Note>
+    public class Note : IEquatable<Note>
     {
         public string Title
         {

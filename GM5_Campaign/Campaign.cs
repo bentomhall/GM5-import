@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using Schemas;
 using System.Linq;
+
 namespace GM5_Campaign
 {
-    class Campaign
+    public class Campaign
     {
         public Campaign() {
             c = new campaign();
