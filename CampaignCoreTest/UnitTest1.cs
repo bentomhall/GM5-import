@@ -1,5 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using GM5_Campaign;
+using CampaignCore;
 using System.Collections.Generic;
 using System;
 

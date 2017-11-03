@@ -3,7 +3,7 @@ using Schemas;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-namespace GM5_Campaign
+namespace CampaignCore
 {
 
     public class CreatureParser

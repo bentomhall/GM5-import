@@ -4,7 +4,7 @@ using System.Text;
 using Schemas;
 using System.Linq;
 
-namespace GM5_Campaign
+namespace CampaignCore
 {
     class Encounter : IEquatable<Encounter>
     {

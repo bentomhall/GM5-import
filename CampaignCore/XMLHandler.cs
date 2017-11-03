@@ -3,7 +3,7 @@ using System.IO;
 using System.Xml.Serialization;
 using Schemas;
 
-namespace GM5_Campaign
+namespace CampaignCore
 {
     public class XMLHandler
     {

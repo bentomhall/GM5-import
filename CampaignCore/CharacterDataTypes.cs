@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 
 
-namespace GM5_Campaign
+namespace CampaignCore
 {
     public enum CharacterType {
         PC,
@@ -252,30 +252,24 @@ namespace GM5_Campaign
     {
         public static string ToSeparatedString(this IEnumerable<NameValuePair> lst)
         {
-            var output = new StringBuilder();
-            output.AppendJoin(',', lst.Select(x => x.ToString()));
-            return output.ToString();
+            var output = string.Join(",", lst);
+            return output;
+
         }
 
         public static string ToSeparatedString(this IEnumerable<string> lst)
         {
-            var output = new StringBuilder();
-            output.AppendJoin(',', lst);
-            return output.ToString();
+            return string.Join(",", lst);
         }
 
         public static string ToSeparatedString(this IEnumerable<int> lst)
         {
-            var output = new StringBuilder();
-            output.AppendJoin(',', lst);
-            return output.ToString();
+            return string.Join(",", lst);
         }
 
         public static string ToSeparatedString(this IEnumerable<Schemas.campaignItemProperty> lst)
         {
-            var output = new StringBuilder();
-            output.AppendJoin(',', lst);
-            return output.ToString();
+            return string.Join(",", lst);
         }
     }
 }

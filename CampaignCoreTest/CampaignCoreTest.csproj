@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GM5_Campaign\GM5_Campaign.csproj" />
+    <ProjectReference Include="..\CampaignCore\CampaignCore.csproj" />
   </ItemGroup>
-
 </Project>

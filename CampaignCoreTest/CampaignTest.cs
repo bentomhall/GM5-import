@@ -1,5 +1,5 @@
 ﻿using System;
-using GM5_Campaign;
+using CampaignCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
@@ -8,23 +8,14 @@ namespace CampaignCoreTest
     [TestClass]
     public class CampaignTest
     {
-        private Character testPc;
-        private Character testEnemy;
-        private Character testAlly;
-        private Campaign c;
-
-        [TestInitialize]
-        public void Initialize()
-        {
-            testPc = new Character(CharacterType.PC);
-            testEnemy = new Character(CharacterType.Monster);
-            testAlly = new Character(CharacterType.Ally);
-            c = new Campaign();
-        }
-
+        
         [TestMethod]
         public void TestAddCharacter()
         {
+            var testPc = new Character(CharacterType.PC);
+            var testEnemy = new Character(CharacterType.Monster);
+            var testAlly = new Character(CharacterType.Ally);
+            var c = new Campaign();
             c.AddCharacter(testPc);
             Assert.AreEqual(1, c.PCs.Count());
             c.AddCharacter(testAlly);

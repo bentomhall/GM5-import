@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Schemas;
 
-namespace GM5_Campaign
+namespace CampaignCore
 {
     class ItemMapper
     {

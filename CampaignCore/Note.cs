@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GM5_Campaign
+namespace CampaignCore
 {
     public class Note : IEquatable<Note>
     {
