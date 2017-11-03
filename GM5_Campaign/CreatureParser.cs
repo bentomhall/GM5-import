@@ -96,19 +96,9 @@ namespace GM5_Campaign
             var lst = a.Split('|');
             var atk = int.Parse(lst[1]);
             var dice = ParseDiceValue(lst[2]);
-            var map = new Dictionary<string, AttackType>()
-            {
-                {"Melee Spell Attack", AttackType.MeleeSpell},
-                {"Melee Weapon Attack", AttackType.MeleeWeapon},
-                {"Ranged Spell Attack", AttackType.RangedSpell},
-                {"Ranged Weapon Attack", AttackType.RangedWeapon},
-                {"--", AttackType.SavingThrow}
-            };
 
-            return new AttackRoll(map[lst[0]], atk, dice);
+            return new AttackRoll(lst[0], atk, dice);
         }
-
-
 
         public SpellCasting ParseSpells()
         {

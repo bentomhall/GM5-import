@@ -92,8 +92,8 @@ namespace CampaignCoreTest
         public void TestAttackRoll()
         {
             var dv = new DiceValue(1, 6, 2);
-            var obj = new AttackRoll(AttackType.MeleeSpell, 4, dv);
-            var expected = "Melee Spell Attack|+4|1d6+2";
+            var obj = new AttackRoll("This is an attack", 4, dv);
+            var expected = "This is an attack|+4|1d6+2";
             Assert.AreEqual(expected, obj.ToString());
         }
 
@@ -101,7 +101,7 @@ namespace CampaignCoreTest
         public void TestCreatureFeature()
         {
             var dv = new DiceValue(1, 6, 2);
-            var ar = new AttackRoll(AttackType.MeleeSpell, 4, dv);
+            var ar = new AttackRoll("Test", 4, dv);
             var obj = new CreatureFeature(FeatureType.Action, "test", "test", ar);
             var nullobj = new CreatureFeature(FeatureType.Legendary, "test", "test", null);
             Assert.AreEqual(ar.ToString(), obj.Feature.attack);

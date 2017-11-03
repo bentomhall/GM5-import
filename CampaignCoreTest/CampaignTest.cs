@@ -2,6 +2,7 @@
 using GM5_Campaign;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
+
 namespace CampaignCoreTest
 {
     [TestClass]
@@ -12,7 +13,7 @@ namespace CampaignCoreTest
         private Character testAlly;
         private Campaign c;
 
-        [TestInitialize()]
+        [TestInitialize]
         public void Initialize()
         {
             testPc = new Character(CharacterType.PC);

@@ -20,15 +20,6 @@ namespace GM5_Campaign
         Reaction
     }
 
-    public enum AttackType {
-        MeleeWeapon,
-        MeleeSpell,
-        RangedWeapon,
-        RangedSpell,
-        SavingThrow
-    }
-
-
     public struct ArmorClass
     {
         public ArmorClass(int value, string source)
@@ -141,30 +132,22 @@ namespace GM5_Campaign
     }
 
     public class AttackRoll {
-        public AttackRoll(AttackType type, int hitBonus, DiceValue damage) 
+        public AttackRoll(string text, int hitBonus, DiceValue damage) 
         {
-            Attack = type;
+            Details = text;
             HitBonus = hitBonus;
             Damage = damage;
         }
 
         public override string ToString()
         {
-            if (Attack == AttackType.SavingThrow && HitBonus == 0 && Damage.Number == 0 && Damage.StaticBonus == 0) { return ""; } //empty value, null replacement
-            return $"{attackMap[Attack]}|{HitBonus.ToString("+0;0;-0")}|{Damage}";
+            if (Details == "" && HitBonus == 0 && Damage.Number == 0 && Damage.StaticBonus == 0) { return ""; } //empty value, null replacement
+            return $"{Details}|{HitBonus.ToString("+0;0;-0")}|{Damage}";
         }
 
-        public AttackType Attack { get; private set; }
+        public string Details { get; private set; }
         public int HitBonus {get; private set; }
-        public DiceValue Damage {get; private set; }
-
-        private Dictionary<AttackType, string> attackMap = new Dictionary<AttackType, string> {
-            { AttackType.MeleeSpell, "Melee Spell Attack" },
-            { AttackType.MeleeWeapon, "Melee Weapon Attack" },
-            { AttackType.RangedSpell, "Ranged Spell Attack" },
-            { AttackType.RangedWeapon, "Ranged Weapon Attack" },
-            { AttackType.SavingThrow, "--"}
-        };
+        public DiceValue Damage { get; private set; }
     }
 
     public class CreatureFeature : IEquatable<CreatureFeature>
@@ -188,7 +171,7 @@ namespace GM5_Campaign
             feature.attack = attack?.ToString() ?? "";
             feature.name = name;
             feature.text = text;
-            this.attack = attack ?? new AttackRoll(AttackType.SavingThrow, 0, new DiceValue(0,0,0));
+            this.attack = attack ?? new AttackRoll("", 0, new DiceValue(0,0,0));
         }
 
         public AttackRoll Attack => attack ;
