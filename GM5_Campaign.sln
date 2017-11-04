@@ -1,12 +1,12 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CampaignCoreTest", "CampaignCoreTest\CampaignCoreTest.csproj", "{39F71754-CE24-422D-B978-BEA896B617EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CampaignCoreTest", "CampaignCoreTest\CampaignCoreTest.csproj", "{39F71754-CE24-422D-B978-BEA896B617EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CampaignCore", "CampaignCore\CampaignCore.csproj", "{1CAE82F0-BC17-4AFB-A7F8-0D24E605E2D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CampaignCore", "CampaignCore\CampaignCore.csproj", "{1CAE82F0-BC17-4AFB-A7F8-0D24E605E2D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CampaignBuilder", "CampaignBuilder\CampaignBuilder.csproj", "{04A5C75F-FAD1-4CA4-9785-5E6E1789B982}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CampaignBuilder", "CampaignBuilder\CampaignBuilder.csproj", "{D2BEC3F1-F9ED-4DD9-84FC-38A2360AB801}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,10 +22,10 @@ Global
 		{1CAE82F0-BC17-4AFB-A7F8-0D24E605E2D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CAE82F0-BC17-4AFB-A7F8-0D24E605E2D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CAE82F0-BC17-4AFB-A7F8-0D24E605E2D9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{04A5C75F-FAD1-4CA4-9785-5E6E1789B982}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{04A5C75F-FAD1-4CA4-9785-5E6E1789B982}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{04A5C75F-FAD1-4CA4-9785-5E6E1789B982}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{04A5C75F-FAD1-4CA4-9785-5E6E1789B982}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2BEC3F1-F9ED-4DD9-84FC-38A2360AB801}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2BEC3F1-F9ED-4DD9-84FC-38A2360AB801}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2BEC3F1-F9ED-4DD9-84FC-38A2360AB801}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2BEC3F1-F9ED-4DD9-84FC-38A2360AB801}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
