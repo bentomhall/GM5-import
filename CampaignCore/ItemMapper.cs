@@ -6,7 +6,7 @@ using Schemas;
 
 namespace CampaignCore
 {
-    class ItemMapper
+    public class ItemMapper
     {
         public ItemMapper()
         {

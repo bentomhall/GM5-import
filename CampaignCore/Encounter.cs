@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace CampaignCore
 {
-    class Encounter : IEquatable<Encounter>
+    public class Encounter : IEquatable<Encounter>
     {
         public string Name
         {

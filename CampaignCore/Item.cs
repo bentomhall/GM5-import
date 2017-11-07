@@ -47,7 +47,7 @@ namespace CampaignCore
         Special
     }
 
-    class Item : IEquatable<Item>
+    public class Item : IEquatable<Item>
     {
         public Item(ItemMapper map)
         {
