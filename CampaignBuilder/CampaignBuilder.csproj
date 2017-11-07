@@ -22,4 +22,7 @@
     <ProjectReference Include="..\CampaignCore\CampaignCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\DataModels\" />
+  </ItemGroup>
 </Project>
