@@ -7,13 +7,13 @@ namespace CampaignCore
 {
     public class XMLHandler
     {
-        public campaign ParseXML(string path) {
+        public Campaign ParseXML(string path) {
             campaign newCampaign;
             using (StreamReader reader = new StreamReader(path)) {
                 XmlSerializer serializer = new XmlSerializer(typeof(campaign));
                 newCampaign = (campaign)serializer.Deserialize(reader);
             }
-            return newCampaign;
+            return new Campaign(newCampaign);
         }
 
         public void SaveXML(campaign c, string path) {
@@ -21,6 +21,12 @@ namespace CampaignCore
                 XmlSerializer serializer = new XmlSerializer(typeof(campaign));
                 serializer.Serialize(writer, c);
             }
+        }
+
+        public void GetXMLString(Campaign c, StreamWriter writer)
+        {
+            var serializer = new XmlSerializer(typeof(campaign));
+            serializer.Serialize(writer, c.BuildForPersistance());  
         }
     }
 }
