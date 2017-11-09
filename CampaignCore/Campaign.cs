@@ -60,6 +60,17 @@ namespace CampaignCore
             notes.Remove(note);
         }
 
+        public IEnumerable<Encounter> Encounters => encounters;
+        public void AddEncounter(Encounter encounter)
+        {
+            if (encounters.Contains(encounter)) { return; }
+            encounters.Add(encounter);
+        }
+        public void RemoveEncounter(Encounter encounter)
+        {
+            encounters.Remove(encounter);
+        }
+
         public campaign BuildForPersistance()
         {
             c.pc = pcEntities.Select(x => x.BuildForPersistance()).ToList();

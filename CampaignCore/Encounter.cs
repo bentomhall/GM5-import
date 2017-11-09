@@ -22,6 +22,7 @@ namespace CampaignCore
             if (role == CharacterType.PC)
             {
                 combatant.pc = label;
+                combatant.label = label;
             }
             else
             {
@@ -34,6 +35,7 @@ namespace CampaignCore
             {
                 combatant.hp = $"{currentHP}/{maxHP}";
             }
+            if (encounter.combatant == null) { encounter.combatant = new List<campaignEncounterCombatant>(); }
             encounter.combatant.Add(combatant);
         }
 
